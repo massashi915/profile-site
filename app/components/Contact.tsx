@@ -10,7 +10,7 @@ export default function Contact() {
     const data = new FormData(form);
 
     // Formspree エンドポイント（後でIDを差し替える）
-    const FORMSPREE_ID = "YOUR_FORMSPREE_ID";
+    const FORMSPREE_ID = "mlgpgjoe";
     const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
       method: "POST",
       body: data,
