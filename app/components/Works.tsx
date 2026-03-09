@@ -11,7 +11,7 @@ const works = [
     status: "live" as const,
     demoUrl: "https://flipbook-admin-y7rnmjhj3a-an.a.run.app",
     demoNote: "PW: demo2024",
-    images: [] as string[],
+    images: ["/images/works/flipbook-dashboard.png"],
   },
   {
     id: "matoi",
