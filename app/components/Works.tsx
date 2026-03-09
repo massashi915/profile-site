@@ -1,4 +1,5 @@
-import Image from "next/image";
+"use client";
+import ImageSlider from "./ImageSlider";
 
 const works = [
   {
@@ -101,27 +102,8 @@ export default function Works() {
                 key={work.id}
                 className="group border border-slate-100 rounded-xl overflow-hidden hover:shadow-lg transition-shadow bg-white flex flex-col"
               >
-                {/* スクショ（あれば表示） */}
-                {hasImages && (
-                  <div className="relative w-full aspect-video bg-slate-100 overflow-hidden">
-                    <Image
-                      src={work.images[0]}
-                      alt={work.title}
-                      fill
-                      className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                    />
-                    {work.images.length > 1 && (
-                      <div className="absolute bottom-2 right-2 flex gap-1">
-                        {work.images.map((_, i) => (
-                          <span
-                            key={i}
-                            className={`w-1.5 h-1.5 rounded-full ${i === 0 ? "bg-white" : "bg-white/50"}`}
-                          />
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                )}
+                {/* スクショスライダー */}
+                {hasImages && <ImageSlider images={work.images} title={work.title} />}
 
                 {/* カードヘッダー */}
                 <div className="bg-slate-50 px-6 py-5 border-b border-slate-100">
