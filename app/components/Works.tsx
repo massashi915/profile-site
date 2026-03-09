@@ -177,7 +177,7 @@ export default function Works() {
           })}
 
           {/* Coming Soon */}
-          {["自動受付ボット", "楽する窓口"].map((title) => (
+          {["自動受付ボット"].map((title) => (
             <div
               key={title}
               className="border border-dashed border-slate-200 rounded-xl p-6 flex flex-col items-start justify-between bg-slate-50/50"
