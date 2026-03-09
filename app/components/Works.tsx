@@ -40,7 +40,7 @@ const works = [
     status: "client" as const,
     demoUrl: "",
     demoNote: "",
-    images: [] as string[],
+    images: ["/images/works/hikitsuke-admin.png"],
   },
   {
     id: "otegime",
