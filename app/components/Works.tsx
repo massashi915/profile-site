@@ -52,7 +52,7 @@ const works = [
     status: "live" as const,
     demoUrl: "",
     demoNote: "",
-    images: [] as string[],
+    images: ["/images/works/rakumado-line-3.jpg", "/images/works/rakumado-line-1.jpg", "/images/works/rakumado-line-2.jpg"],
   },
   {
     id: "mitsumori",
