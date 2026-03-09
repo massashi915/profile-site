@@ -157,20 +157,6 @@ export default function Works() {
               </div>
             );
           })}
-
-          {/* Coming Soon */}
-          {["自動受付ボット"].map((title) => (
-            <div
-              key={title}
-              className="border border-dashed border-slate-200 rounded-xl p-6 flex flex-col items-start justify-between bg-slate-50/50"
-            >
-              <div>
-                <span className="text-xs bg-slate-100 text-slate-400 px-2.5 py-1 rounded-full font-medium">Coming Soon</span>
-                <h3 className="text-sm font-bold text-slate-400 mt-4">{title}</h3>
-              </div>
-              <p className="text-xs text-slate-300 mt-6">準備中</p>
-            </div>
-          ))}
         </div>
       </div>
     </section>
