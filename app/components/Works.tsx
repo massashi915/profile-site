@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const works = [
   {
     id: "flipbook",
@@ -7,17 +9,38 @@ const works = [
       "紙媒体・PDFをWebで美しく配信・管理できるSaaSプラットフォーム。閲覧トラッキング・管理画面・API連携を備えたエンドツーエンドのシステム。",
     tags: ["Next.js", "Node.js", "Docker", "Cloud Run"],
     status: "live" as const,
+    demoUrl: "https://flipbook-admin-y7rnmjhj3a-an.a.run.app",
+    demoNote: "PW: demo2024",
+    images: [] as string[],
+  },
+  {
+    id: "matoi",
+    category: "コンテンツ生成システム",
+    title: "MATOIシステム",
+    description:
+      "思想・判断・現場知見をObsidianで蓄積し、AIが自動でnote記事・YouTube Shorts台本に展開する統合プラットフォーム。ワークフロー監視・AI生成・設定管理を一画面で完結。",
+    tags: ["Next.js", "AI", "Dify", "n8n", "自動化"],
+    status: "private" as const,
     demoUrl: "",
+    demoNote: "",
+    images: [
+      "/images/works/matoi-dashboard.png",
+      "/images/works/matoi-ai.png",
+      "/images/works/matoi-workflow.png",
+      "/images/works/matoi-settings.png",
+    ],
   },
   {
     id: "hikitsuke",
     category: "LINE Bot / 管理画面",
     title: "引き付けBot & 管理システム",
     description:
-      "キャラクターを模したチャットボットが、ユーザーのニーズに応じてコンテンツを提供。チラシ読み込みによるSNS投稿自動生成・管理画面による一元管理を実現。公開一晩で40登録を達成。",
+      "キャラクターを模したチャットボットがユーザーのニーズに応じてコンテンツを提供。チラシ読み込みによるSNS投稿自動生成と管理画面による一元管理を実現。公開一晩で40登録を達成。",
     tags: ["LINE Bot", "AI", "管理画面", "Cloud Run"],
     status: "client" as const,
     demoUrl: "",
+    demoNote: "",
+    images: [] as string[],
   },
   {
     id: "otegime",
@@ -28,6 +51,8 @@ const works = [
     tags: ["LINE Bot", "自動化", "Cloud Run"],
     status: "live" as const,
     demoUrl: "",
+    demoNote: "",
+    images: [] as string[],
   },
   {
     id: "mitsumori",
@@ -38,23 +63,16 @@ const works = [
     tags: ["LINE Bot", "自動見積もり", "業務効率化"],
     status: "live" as const,
     demoUrl: "",
-  },
-  {
-    id: "matoi",
-    category: "コンテンツ生成システム",
-    title: "MATOIシステム",
-    description:
-      "思想・判断・現場知見を体系的に蓄積し、AIを活用して複数のメディアフォーマットに自動展開する統合プラットフォーム。note・YouTube Shorts等への自動配信基盤。",
-    tags: ["Next.js", "AI", "Dify", "n8n", "自動化"],
-    status: "development" as const,
-    demoUrl: "",
+    demoNote: "",
+    images: [] as string[],
   },
 ];
 
 const statusLabel = {
-  live: { label: "稼働中", color: "bg-emerald-50 text-emerald-600 border-emerald-200" },
-  client: { label: "クライアント専用", color: "bg-blue-50 text-blue-600 border-blue-200" },
-  development: { label: "開発中", color: "bg-amber-50 text-amber-600 border-amber-200" },
+  live:    { label: "稼働中",          color: "bg-emerald-50 text-emerald-600 border-emerald-200" },
+  client:  { label: "クライアント専用", color: "bg-blue-50 text-blue-600 border-blue-200" },
+  private: { label: "プライベート運用", color: "bg-violet-50 text-violet-600 border-violet-200" },
+  development: { label: "開発中",      color: "bg-amber-50 text-amber-600 border-amber-200" },
 };
 
 export default function Works() {
@@ -76,11 +94,35 @@ export default function Works() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {works.map((work) => {
             const status = statusLabel[work.status];
+            const hasImages = work.images.length > 0;
+
             return (
               <div
                 key={work.id}
                 className="group border border-slate-100 rounded-xl overflow-hidden hover:shadow-lg transition-shadow bg-white flex flex-col"
               >
+                {/* スクショ（あれば表示） */}
+                {hasImages && (
+                  <div className="relative w-full aspect-video bg-slate-100 overflow-hidden">
+                    <Image
+                      src={work.images[0]}
+                      alt={work.title}
+                      fill
+                      className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                    />
+                    {work.images.length > 1 && (
+                      <div className="absolute bottom-2 right-2 flex gap-1">
+                        {work.images.map((_, i) => (
+                          <span
+                            key={i}
+                            className={`w-1.5 h-1.5 rounded-full ${i === 0 ? "bg-white" : "bg-white/50"}`}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 {/* カードヘッダー */}
                 <div className="bg-slate-50 px-6 py-5 border-b border-slate-100">
                   <div className="flex items-start justify-between gap-3">
@@ -88,9 +130,7 @@ export default function Works() {
                       <p className="text-xs text-slate-400 mb-1 tracking-wide">{work.category}</p>
                       <h3 className="text-sm font-bold text-slate-800 leading-snug">{work.title}</h3>
                     </div>
-                    <span
-                      className={`shrink-0 text-xs border px-2.5 py-1 rounded-full font-medium ${status.color}`}
-                    >
+                    <span className={`shrink-0 text-xs border px-2.5 py-1 rounded-full font-medium ${status.color}`}>
                       {status.label}
                     </span>
                   </div>
@@ -99,32 +139,36 @@ export default function Works() {
                 {/* 説明 */}
                 <div className="px-6 py-5 flex-1 flex flex-col">
                   <p className="text-sm text-slate-500 leading-7 mb-5 flex-1">{work.description}</p>
+
                   <div className="flex flex-wrap gap-1.5 mb-5">
                     {work.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-xs bg-slate-100 text-slate-500 px-2.5 py-1 rounded"
-                      >
+                      <span key={tag} className="text-xs bg-slate-100 text-slate-500 px-2.5 py-1 rounded">
                         {tag}
                       </span>
                     ))}
                   </div>
 
                   {work.demoUrl ? (
-                    <a
-                      href={work.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-700 hover:text-slate-900 border border-slate-200 px-4 py-2 rounded hover:border-slate-400 transition-colors self-start"
-                    >
-                      デモを見る
-                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                      </svg>
-                    </a>
+                    <div className="flex flex-col gap-1.5">
+                      <a
+                        href={work.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-700 hover:text-slate-900 border border-slate-200 px-4 py-2 rounded hover:border-slate-400 transition-colors self-start"
+                      >
+                        デモを見る
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                      {work.demoNote && (
+                        <p className="text-xs text-slate-400">{work.demoNote}</p>
+                      )}
+                    </div>
                   ) : (
                     <span className="text-xs text-slate-300">
-                      {work.status === "client" ? "※ ご依頼者様限定でログイン提供" : work.status === "development" ? "※ 準備中" : ""}
+                      {work.status === "client"  ? "※ ご依頼者様限定でログイン提供" : ""}
+                      {work.status === "private" ? "※ 自社運用中" : ""}
                     </span>
                   )}
                 </div>
@@ -132,7 +176,7 @@ export default function Works() {
             );
           })}
 
-          {/* Coming Soon カード */}
+          {/* Coming Soon */}
           {["自動受付ボット", "楽する窓口"].map((title) => (
             <div
               key={title}
