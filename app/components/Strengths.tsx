@@ -21,17 +21,17 @@ const strengths = [
 
 export default function Strengths() {
   return (
-    <section id="strengths" className="bg-slate-50 py-28">
+    <section id="strengths" className="bg-slate-50 py-16 md:py-28">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="flex items-center gap-4 mb-14">
+        <div className="flex items-center gap-4 mb-8 md:mb-14">
           <span className="text-xs font-semibold tracking-[0.3em] text-blue-600 uppercase">Strengths</span>
           <div className="flex-1 h-px bg-slate-200" />
         </div>
 
-        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+        <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mb-4">
           私が提供できる、3つの強み。
         </h2>
-        <p className="text-sm text-slate-500 mb-14 max-w-xl leading-relaxed">
+        <p className="text-sm text-slate-500 mb-8 md:mb-14 max-w-xl leading-relaxed">
           技術スキルだけでなく、現場経験・対話力・運用知見を組み合わせた
           トータルな支援が特長です。
         </p>

@@ -1,20 +1,19 @@
 export default function About() {
   return (
-    <section id="about" className="bg-white py-28">
+    <section id="about" className="bg-white py-16 md:py-28">
       <div className="max-w-6xl mx-auto px-6">
         {/* セクションラベル */}
-        <div className="flex items-center gap-4 mb-14">
+        <div className="flex items-center gap-4 mb-8 md:mb-14">
           <span className="text-xs font-semibold tracking-[0.3em] text-blue-600 uppercase">About</span>
           <div className="flex-1 h-px bg-slate-100" />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-16 items-start">
+        <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
           {/* Left: 見出し */}
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 leading-tight mb-6">
-              現場経験と対話から生まれた、<br />
-              実務に効く<br />
-              テクノロジー支援。
+            <h2 className="text-2xl md:text-4xl font-bold text-slate-900 leading-snug mb-6">
+              現場経験と対話から生まれた、
+              実務に効くテクノロジー支援。
             </h2>
             <div className="w-10 h-0.5 bg-blue-500 mb-8" />
             <div className="bg-slate-50 border border-slate-100 rounded-lg p-6">

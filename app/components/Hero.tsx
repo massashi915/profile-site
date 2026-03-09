@@ -7,25 +7,25 @@ export default function Hero() {
         <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-blue-50 opacity-40 blur-3xl" />
       </div>
 
-      <div className="relative max-w-6xl mx-auto px-6 py-32 grid md:grid-cols-2 gap-16 items-center">
+      <div className="relative max-w-6xl mx-auto px-6 py-20 md:py-32 grid md:grid-cols-2 gap-10 md:gap-16 items-center">
         {/* Left: テキスト */}
         <div>
-          <p className="text-xs font-semibold tracking-[0.3em] text-blue-600 uppercase mb-6">
+          <p className="text-xs font-semibold tracking-[0.3em] text-blue-600 uppercase mb-4 md:mb-6">
             Freelance Engineer
           </p>
-          <h1 className="text-5xl md:text-6xl font-bold text-slate-900 tracking-tight mb-3 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-slate-900 tracking-tight mb-3 leading-tight">
             KISHINO<br />MASASHI
           </h1>
-          <p className="text-base text-slate-500 font-medium tracking-widest mb-10">
+          <p className="text-sm md:text-base text-slate-500 font-medium tracking-widest mb-6 md:mb-10">
             業務自動化 ・ AI活用支援
           </p>
 
-          <div className="w-12 h-0.5 bg-blue-500 mb-8" />
+          <div className="w-12 h-0.5 bg-blue-500 mb-6 md:mb-8" />
 
-          <p className="text-xl md:text-2xl font-medium text-slate-700 leading-relaxed mb-4">
+          <p className="text-lg md:text-2xl font-medium text-slate-700 leading-relaxed mb-2 md:mb-4">
             事業の現場を知るエンジニアが、
           </p>
-          <p className="text-xl md:text-2xl font-medium text-slate-700 leading-relaxed mb-10">
+          <p className="text-lg md:text-2xl font-medium text-slate-700 leading-relaxed mb-6 md:mb-10">
             業務の詰まりを仕組みで解きます。
           </p>
 
