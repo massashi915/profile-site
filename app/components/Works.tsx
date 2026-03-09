@@ -1,0 +1,152 @@
+const works = [
+  {
+    id: "flipbook",
+    category: "SaaS Platform",
+    title: "Flipbook Platform",
+    description:
+      "紙媒体・PDFをWebで美しく配信・管理できるSaaSプラットフォーム。閲覧トラッキング・管理画面・API連携を備えたエンドツーエンドのシステム。",
+    tags: ["Next.js", "Node.js", "Docker", "Cloud Run"],
+    status: "live" as const,
+    demoUrl: "",
+  },
+  {
+    id: "hikitsuke",
+    category: "LINE Bot / 管理画面",
+    title: "引き付けBot & 管理システム",
+    description:
+      "キャラクターを模したチャットボットが、ユーザーのニーズに応じてコンテンツを提供。チラシ読み込みによるSNS投稿自動生成・管理画面による一元管理を実現。公開一晩で40登録を達成。",
+    tags: ["LINE Bot", "AI", "管理画面", "Cloud Run"],
+    status: "client" as const,
+    demoUrl: "",
+  },
+  {
+    id: "otegime",
+    category: "LINE Bot",
+    title: "楽する受付ボット",
+    description:
+      "コンサル事業者の問い合わせ・受付業務をLINE上で完全自動化。初回ヒアリングから情報収集・案内までをボットが担い、担当者の対応コストを大幅に削減。",
+    tags: ["LINE Bot", "自動化", "Cloud Run"],
+    status: "live" as const,
+    demoUrl: "",
+  },
+  {
+    id: "mitsumori",
+    category: "業務自動化ツール",
+    title: "自動見積もりツール",
+    description:
+      "LINE上でのヒアリングから見積もり提示までをワンストップで完結。担当者が不在でも、見込み顧客への初回見積もりをリアルタイムで提供できる仕組み。",
+    tags: ["LINE Bot", "自動見積もり", "業務効率化"],
+    status: "live" as const,
+    demoUrl: "",
+  },
+  {
+    id: "matoi",
+    category: "コンテンツ生成システム",
+    title: "MATOIシステム",
+    description:
+      "思想・判断・現場知見を体系的に蓄積し、AIを活用して複数のメディアフォーマットに自動展開する統合プラットフォーム。note・YouTube Shorts等への自動配信基盤。",
+    tags: ["Next.js", "AI", "Dify", "n8n", "自動化"],
+    status: "development" as const,
+    demoUrl: "",
+  },
+];
+
+const statusLabel = {
+  live: { label: "稼働中", color: "bg-emerald-50 text-emerald-600 border-emerald-200" },
+  client: { label: "クライアント専用", color: "bg-blue-50 text-blue-600 border-blue-200" },
+  development: { label: "開発中", color: "bg-amber-50 text-amber-600 border-amber-200" },
+};
+
+export default function Works() {
+  return (
+    <section id="works" className="bg-white py-28">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="flex items-center gap-4 mb-14">
+          <span className="text-xs font-semibold tracking-[0.3em] text-blue-600 uppercase">Works</span>
+          <div className="flex-1 h-px bg-slate-100" />
+        </div>
+
+        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          制作・開発実績
+        </h2>
+        <p className="text-sm text-slate-500 mb-14 max-w-xl leading-relaxed">
+          現場のボトルネックを起点に設計した、実務で稼働するシステムです。
+        </p>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {works.map((work) => {
+            const status = statusLabel[work.status];
+            return (
+              <div
+                key={work.id}
+                className="group border border-slate-100 rounded-xl overflow-hidden hover:shadow-lg transition-shadow bg-white flex flex-col"
+              >
+                {/* カードヘッダー */}
+                <div className="bg-slate-50 px-6 py-5 border-b border-slate-100">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-xs text-slate-400 mb-1 tracking-wide">{work.category}</p>
+                      <h3 className="text-sm font-bold text-slate-800 leading-snug">{work.title}</h3>
+                    </div>
+                    <span
+                      className={`shrink-0 text-xs border px-2.5 py-1 rounded-full font-medium ${status.color}`}
+                    >
+                      {status.label}
+                    </span>
+                  </div>
+                </div>
+
+                {/* 説明 */}
+                <div className="px-6 py-5 flex-1 flex flex-col">
+                  <p className="text-sm text-slate-500 leading-7 mb-5 flex-1">{work.description}</p>
+                  <div className="flex flex-wrap gap-1.5 mb-5">
+                    {work.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-xs bg-slate-100 text-slate-500 px-2.5 py-1 rounded"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {work.demoUrl ? (
+                    <a
+                      href={work.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-700 hover:text-slate-900 border border-slate-200 px-4 py-2 rounded hover:border-slate-400 transition-colors self-start"
+                    >
+                      デモを見る
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                  ) : (
+                    <span className="text-xs text-slate-300">
+                      {work.status === "client" ? "※ ご依頼者様限定でログイン提供" : work.status === "development" ? "※ 準備中" : ""}
+                    </span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+
+          {/* Coming Soon カード */}
+          {["自動受付ボット", "楽する窓口"].map((title) => (
+            <div
+              key={title}
+              className="border border-dashed border-slate-200 rounded-xl p-6 flex flex-col items-start justify-between bg-slate-50/50"
+            >
+              <div>
+                <span className="text-xs bg-slate-100 text-slate-400 px-2.5 py-1 rounded-full font-medium">Coming Soon</span>
+                <h3 className="text-sm font-bold text-slate-400 mt-4">{title}</h3>
+              </div>
+              <p className="text-xs text-slate-300 mt-6">準備中</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
