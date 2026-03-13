@@ -1,6 +1,29 @@
 "use client";
 import ImageSlider from "./ImageSlider";
 
+const featured = {
+  id: "signal-craft",
+  category: "コンテンツ生成 SaaS",
+  title: "Signal Craft",
+  url: "https://www.signal-craft.net",
+  description:
+    "起業家・個人クリエイターのための、AIがあなたの声を学ぶコンテンツ生成プラットフォーム。31問のインタビューであなたの思想・言語・価値観をAIが習得し、note・X・Instagram・LinkedIn向けの本物のコンテンツを自動生成。使えば使うほど精度が上がる成長型AIシステム。",
+  tags: ["Next.js", "AI", "SaaS", "マルチプラットフォーム", "自動生成"],
+  pricing: [
+    { plan: "Free", price: "¥0", highlight: false },
+    { plan: "Pro",  price: "¥4,980/月", highlight: true },
+    { plan: "Business", price: "¥14,800/月", highlight: false },
+  ],
+  features: [
+    "31問インタビューで声を学習",
+    "ペルソナ設計 × テーマ管理",
+    "AI サムネイル自動生成",
+    "URL 解析リサーチツール",
+    "毎朝5時に下書き自動生成（Pro）",
+    "チーム対応 3プロジェクト（Business）",
+  ],
+};
+
 const works = [
   {
     id: "flipbook",
@@ -92,6 +115,89 @@ export default function Works() {
           現場のボトルネックを起点に設計した、実務で稼働するシステムです。
         </p>
 
+        {/* Featured: Signal Craft */}
+        <a
+          href={featured.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mb-8 rounded-2xl overflow-hidden bg-slate-900 shadow-xl hover:shadow-2xl transition-shadow block group"
+        >
+          <div className="grid md:grid-cols-5">
+            {/* Left: コンテンツ */}
+            <div className="md:col-span-3 p-8 md:p-10 flex flex-col">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="text-xs font-bold tracking-[0.25em] text-blue-400 uppercase">Featured Product</span>
+                <span className="text-xs border border-emerald-500/50 text-emerald-400 px-2.5 py-1 rounded-full font-medium">
+                  稼働中
+                </span>
+              </div>
+
+              <p className="text-xs text-slate-500 mb-1 tracking-wide">{featured.category}</p>
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-5 tracking-tight">
+                {featured.title}
+              </h3>
+
+              <p className="text-sm text-slate-300 leading-7 mb-7 flex-1">
+                {featured.description}
+              </p>
+
+              <div className="flex flex-wrap gap-2 mb-7">
+                {featured.tags.map((tag) => (
+                  <span key={tag} className="text-xs bg-white/10 text-slate-300 px-2.5 py-1 rounded">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* 料金プラン */}
+              <div className="flex gap-3 mb-8">
+                {featured.pricing.map((p) => (
+                  <div
+                    key={p.plan}
+                    className={`rounded-lg px-4 py-3 text-center ${
+                      p.highlight
+                        ? "bg-blue-600/30 border border-blue-500/50"
+                        : "bg-white/5 border border-white/10"
+                    }`}
+                  >
+                    <p className={`text-xs mb-1 ${p.highlight ? "text-blue-300" : "text-slate-500"}`}>
+                      {p.plan}
+                    </p>
+                    <p className="text-sm font-bold text-white whitespace-nowrap">{p.price}</p>
+                  </div>
+                ))}
+              </div>
+
+              <span className="inline-flex items-center gap-2 bg-white text-slate-900 text-sm font-semibold px-6 py-3 rounded-lg group-hover:bg-slate-100 transition-colors self-start">
+                サービスを見る
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </span>
+            </div>
+
+            {/* Right: スクリーンショット */}
+            <div className="md:col-span-2 border-t md:border-t-0 md:border-l border-white/10 overflow-hidden flex flex-col">
+              {/* ブラウザ風ヘッダー */}
+              <div className="flex items-center gap-1.5 px-4 py-2.5 bg-white/5 border-b border-white/10 shrink-0">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+                <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
+                <span className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
+                <span className="ml-3 text-xs text-slate-500 truncate">signal-craft.net</span>
+              </div>
+              {/* スクリーンショット */}
+              <div className="flex-1 overflow-hidden">
+                <img
+                  src="/images/works/signal-craft-top.png"
+                  alt="Signal Craft スクリーンショット"
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
+            </div>
+          </div>
+        </a>
+
+        {/* Other works */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {works.map((work) => {
             const status = statusLabel[work.status];
@@ -102,10 +208,8 @@ export default function Works() {
                 key={work.id}
                 className="group border border-slate-100 rounded-xl overflow-hidden hover:shadow-lg transition-shadow bg-white flex flex-col"
               >
-                {/* スクショスライダー */}
                 {hasImages && <ImageSlider images={work.images} title={work.title} />}
 
-                {/* カードヘッダー */}
                 <div className="bg-slate-50 px-6 py-5 border-b border-slate-100">
                   <div className="flex items-start justify-between gap-3">
                     <div>
@@ -118,7 +222,6 @@ export default function Works() {
                   </div>
                 </div>
 
-                {/* 説明 */}
                 <div className="px-6 py-5 flex-1 flex flex-col">
                   <p className="text-sm text-slate-500 leading-7 mb-5 flex-1">{work.description}</p>
 

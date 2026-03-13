@@ -53,6 +53,26 @@ export default function Hero() {
 
         {/* Right: キーワードカード */}
         <div className="hidden md:flex flex-col gap-4">
+          {/* Featured Product */}
+          <a
+            href="https://www.signal-craft.net"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-5 bg-slate-900 rounded-lg px-6 py-5 shadow-md hover:shadow-lg transition-shadow group"
+          >
+            <span className="text-2xl font-bold text-slate-700 leading-none">★</span>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-0.5">
+                <p className="text-sm font-bold text-white">Signal Craft</p>
+                <span className="text-xs bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded-full">自社SaaS</span>
+              </div>
+              <p className="text-xs text-slate-400">AIがあなたの声を学ぶコンテンツ生成プラットフォーム</p>
+            </div>
+            <svg className="w-4 h-4 text-slate-600 group-hover:text-slate-400 transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+
           {[
             { num: "01", label: "LINE Bot 開発", sub: "受付・集客・キャラクター型など" },
             { num: "02", label: "業務自動化システム", sub: "見積もり・投稿生成・ワークフロー" },
