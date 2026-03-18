@@ -2,8 +2,8 @@ import Header from "../components/Header";
 import Works from "../components/Works";
 import Footer from "../components/Footer";
 
-const RESUME_PDF = "https://docs.google.com/document/d/1soUttXTziIQtRF9P9ho27C2w2rEAUxqK3Vq6RK2bhsg/export?format=pdf";
-const RIREKISHO_PDF = "https://docs.google.com/spreadsheets/d/1DSAI9AlevKnWrhrWVB-TKjMLdIvFu-0C3ga7El_NOY0/export?format=pdf";
+const RESUME_PDF = "https://drive.google.com/file/d/13ka8KEW1jaJmH4-Xl0_ffUWeYk_H8nUS/view?usp=drivesdk";
+const RIREKISHO_PDF = "https://drive.google.com/file/d/10ygeqqM6-8bM1q_K7Fe8oz-zXzX8iqEY/view?usp=drivesdk";
 
 const skills = [
   {
