@@ -3,7 +3,7 @@ import Works from "../components/Works";
 import Footer from "../components/Footer";
 
 const RESUME_PDF = "https://drive.google.com/file/d/13ka8KEW1jaJmH4-Xl0_ffUWeYk_H8nUS/view?usp=drivesdk";
-const RIREKISHO_PDF = "https://drive.google.com/file/d/10ygeqqM6-8bM1q_K7Fe8oz-zXzX8iqEY/view?usp=drivesdk";
+const RIREKISHO_PDF = "https://drive.google.com/file/d/1zHkt97h-fYoIWAjEG4wL6YlhHKT3P7O6/view?usp=drivesdk";
 
 const skills = [
   {
