@@ -51,7 +51,7 @@ const career = [
   {
     period: "2024年〜現在",
     role: "Signal Craft（自社SaaS）開発・運用",
-    desc: "起業家・個人発信者向けのAIコンテンツ生成SaaS。Next.js / Supabase / Claude API / DALL-E 3 / Stripe を活用。設計・開発・運用・マーケティングを一人推進（AI-native開発スタイル）。",
+    desc: "起業家・個人発信者向けのAIコンテンツ生成SaaS。Next.js / Supabase / Claude API / Google画像生成API / Stripe を活用。設計・開発・運用・マーケティングを一人推進（AI-native開発スタイル）。",
   },
 ];
 
@@ -256,15 +256,14 @@ export default function RecruitPage() {
                   </p>
                   <p className="text-sm text-slate-600 leading-7 mb-4">
                     このスタイルで自社SaaS（Signal Craft）を一人で設計・開発・運用し、
-                    Next.js / Supabase / Stripe / DALL-E 3 / Claude API を組み合わせた
+                    Next.js / Supabase / Stripe / Google画像生成API / Claude API を組み合わせた
                     フルスタックのプロダクトを動かし続けています。
                     「何を作るか」「どう設計するか」「何が足りないか」を言語化する力が、
                     AI活用の精度を決めます。
                   </p>
                   <p className="text-sm text-slate-500 leading-7">
-                    フルスクラッチの実装技術は持ちませんが、
-                    プロダクトを現場で動かし続けてきた設計力・課題発見力・推進力は、
-                    AI時代のエンジニア職において即戦力として発揮できると考えています。
+                    プロダクトを現場で設計・運用し続けてきた構想力・課題発見力・推進力が強みです。
+                    AI時代のエンジニア職において、即日から価値を発揮できる実践的なスキルセットを持っています。
                   </p>
                 </div>
               </div>
@@ -312,6 +311,26 @@ export default function RecruitPage() {
             </p>
 
             <div className="grid md:grid-cols-2 gap-6">
+              <a
+                href="/cc-company-report/index.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="md:col-span-2 group flex items-center gap-6 bg-slate-800 border border-slate-700 rounded-xl px-8 py-7 shadow-sm hover:shadow-md transition-shadow mb-2"
+              >
+                <div className="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center shrink-0">
+                  <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <p className="text-white font-bold text-base mb-1">AIエージェント管理ダッシュボード</p>
+                  <p className="text-slate-400 text-sm">cc-company — 17体のAIエージェントを統括するシステムのステータスレポート</p>
+                </div>
+                <svg className="w-5 h-5 text-slate-500 group-hover:text-slate-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+
               <a
                 href={RESUME_PDF}
                 target="_blank"
