@@ -90,6 +90,18 @@ const works = [
     demoNote: "",
     images: [] as string[],
   },
+  {
+    id: "cc-company",
+    category: "AIエージェント管理システム",
+    title: "cc-company — AI Agent Ops",
+    description:
+      "17体のAIエージェントを統括するオーケストレーションシステム。朝ルーティン・PM・面接対策・コンテンツ生成など全業務をClaude Codeベースのエージェントで自動化。システム全体のステータスをリアルタイムダッシュボードで可視化。",
+    tags: ["Claude Code", "AIエージェント", "自動化", "オーケストレーション"],
+    status: "private" as const,
+    demoUrl: "/cc-company-report/index.html",
+    demoNote: "※ システムステータスレポート",
+    images: [] as string[],
+  },
 ];
 
 const statusLabel = {
