@@ -395,6 +395,7 @@ export default function RecruitPage() {
                 {[
                   { label: "メール", value: "wakuwaku.work.915@gmail.com", href: "mailto:wakuwaku.work.915@gmail.com" },
                   { label: "ポートフォリオ", value: "profile-site-hazel.vercel.app", href: "https://profile-site-hazel.vercel.app" },
+                  { label: "GitHub", value: "github.com/signal-arc-coder-masashi", href: "https://github.com/signal-arc-coder-masashi" },
                 ].map((item) => (
                   <a
                     key={item.label}
