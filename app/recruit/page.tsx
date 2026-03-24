@@ -34,7 +34,7 @@ const skills = [
 
 const career = [
   {
-    period: "1997年〜2017年",
+    period: "1997年〜2024年",
     role: "飲食業（有限会社きしの / 株式会社べにがま）",
     desc: "調理師・店長・新規事業立上げ。従業員12名のマネジメント、300人超の経営者との対話を通じ現場課題を構造的に把握する力を養う。",
   },
@@ -49,7 +49,7 @@ const career = [
     desc: "埼玉ローカルメディアをゼロから立ち上げ、現在1.8万フォロワー。外部委託者と2名体制でコンテンツ制作・チェック・投稿を運用中。",
   },
   {
-    period: "2024年〜現在",
+    period: "2023年〜現在",
     role: "Signal Craft（自社SaaS）開発・運用",
     desc: "起業家・個人発信者向けのAIコンテンツ生成SaaS。Next.js / Supabase / Claude API / Google画像生成API / Stripe を活用。設計・開発・運用・マーケティングを一人推進（AI-native開発スタイル）。",
   },
@@ -180,7 +180,7 @@ export default function RecruitPage() {
                   <dl className="space-y-4">
                     {[
                       { label: "生年月日", value: "1978年9月15日（満47歳）" },
-                      { label: "居住地", value: "埼玉県（毛呂山町）" },
+                      { label: "居住地", value: "埼玉県" },
                       { label: "開発スタイル", value: "AI-native（Claude Code中心）" },
                       { label: "強み", value: "設計・要件定義・プロダクト推進" },
                     ].map((item) => (
