@@ -95,11 +95,23 @@ const works = [
     category: "AIエージェント管理システム",
     title: "cc-company — AI Agent Ops",
     description:
-      "17体のAIエージェントを統括するオーケストレーションシステム。朝ルーティン・PM・面接対策・コンテンツ生成など全業務をClaude Codeベースのエージェントで自動化。システム全体のステータスをリアルタイムダッシュボードで可視化。",
+      "19体のAIエージェントを統括するオーケストレーションシステム。朝ルーティン・PM・面接対策・コンテンツ生成など全業務をClaude Codeベースのエージェントで自動化。システム全体のステータスをリアルタイムダッシュボードで可視化。",
     tags: ["Claude Code", "AIエージェント", "自動化", "オーケストレーション"],
     status: "private" as const,
     demoUrl: "/cc-company-report/index.html",
     demoNote: "※ システムステータスレポート",
+    images: [] as string[],
+  },
+  {
+    id: "agent-kit",
+    category: "OSS / AIエージェントキット",
+    title: "agent-kit",
+    description:
+      "自社業務設計に実際に使っている19のAIエージェントをポータブルパッケージとして公開。bash install.sh 1コマンドで任意のMacに展開できる設計。テンプレート方式で絶対パス依存を排除し、チームや顧客への配布にも対応。「AI導入設計を提案する側が、自ら実践している」実証として公開。",
+    tags: ["Claude Code", "Shell Script", "AIエージェント", "OSS", "ポータブル設計"],
+    status: "live" as const,
+    demoUrl: "https://github.com/signal-arc-coder-masashi/agent-kit",
+    demoNote: "GitHub で見る",
     images: [] as string[],
   },
 ];

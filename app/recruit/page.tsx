@@ -324,7 +324,7 @@ export default function RecruitPage() {
                 </div>
                 <div className="flex-1">
                   <p className="text-white font-bold text-base mb-1">AIエージェント管理ダッシュボード</p>
-                  <p className="text-slate-400 text-sm">cc-company — 17体のAIエージェントを統括するシステムのステータスレポート</p>
+                  <p className="text-slate-400 text-sm">cc-company — 19体のAIエージェントを統括するシステムのステータスレポート</p>
                 </div>
                 <svg className="w-5 h-5 text-slate-500 group-hover:text-slate-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
