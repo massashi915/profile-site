@@ -26,6 +26,18 @@ const featured = {
 
 const works = [
   {
+    id: "futuremind-recruit",
+    category: "業務自動化システム",
+    title: "採用業務自動化（FUTUREMIND）",
+    description:
+      "HERP・SmartHR・求人ボックス・Airwork・ジョブメドレー・Gmail・Google カレンダーをNode.js/API/スクレイピングで統合。Slack UIのボタン操作1つで採用24業務が半自動〜全自動で完結する常時稼働型システムを構築。担当者2名で月100件超の応募者を管理できる体制を実現。",
+    tags: ["Node.js", "Slack Bot", "HERP", "SmartHR", "API統合", "スクレイピング", "業務自動化"],
+    status: "client" as const,
+    demoUrl: "",
+    demoNote: "",
+    images: [] as string[],
+  },
+  {
     id: "flipbook",
     category: "SaaS Platform",
     title: "Flipbook Platform",

@@ -16,7 +16,7 @@ const skills = [
   },
   {
     category: "バックエンド・自動化",
-    items: ["Google Apps Script", "LINE Bot", "n8n", "Node.js", "GCP（Cloud Run / Cloud Scheduler）"],
+    items: ["Google Apps Script", "LINE Bot", "n8n", "Node.js", "GCP（Cloud Run / Cloud Scheduler）", "SaaS間API統合", "Webスクレイピング", "SmartHR / HERP連携"],
   },
   {
     category: "インフラ・デプロイ",
@@ -52,6 +52,11 @@ const career = [
     period: "2023年〜現在",
     role: "Signal Craft（自社SaaS）開発・運用",
     desc: "起業家・個人発信者向けのAIコンテンツ生成SaaS。Next.js / Supabase / Claude API / Google画像生成API / Stripe を活用。設計・開発・運用・マーケティングを一人推進（AI-native開発スタイル）。",
+  },
+  {
+    period: "2026年〜現在",
+    role: "FUTUREMIND（IT・AI戦略 業務委託）",
+    desc: "採用業務24項目をSlack UIで完結するシステムを設計・実装。HERP・SmartHR・求人ボックス・Airwork・ジョブメドレー・Gmail・Google カレンダーをNode.js/API/スクレイピングで統合。ボタン操作1つで半自動〜全自動を選択できる常時稼働型の自動化基盤を構築し、担当者2名で月100件超の応募者管理を実現。労務承認自動化も並行担当。",
   },
 ];
 
@@ -138,7 +143,7 @@ export default function RecruitPage() {
               {[
                 { num: "01", label: "AI-native開発", sub: "Claude Code・生成AI設計・RAG構築" },
                 { num: "02", label: "SaaS開発・運用", sub: "Next.js / Supabase / Stripe / Vercel" },
-                { num: "03", label: "業務自動化設計", sub: "LINE Bot / GAS / n8n / Cloud Run" },
+                { num: "03", label: "業務自動化設計", sub: "7 SaaS統合 / Node.js / Slack Bot / 採用24業務自動化" },
                 { num: "04", label: "現場ヒアリング力", sub: "300人超の経営者との対話経験" },
               ].map((item) => (
                 <div
