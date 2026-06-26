@@ -1,6 +1,39 @@
 "use client";
 import ImageSlider from "./ImageSlider";
 
+/* ─── DX Featured 2件 ─────────────────────────────── */
+const dxFeatured = [
+  {
+    id: "slack-approval",
+    eyebrow: "DX実績 #01",
+    category: "Slack Bot × 勤怠承認自動化",
+    title: "勤怠承認DX",
+    description:
+      "Slack 上のボタン操作だけで勤怠申請から承認・差戻しが完結。承認経路の自動ルーティング・エラー検知・一覧ダッシュボードまでをワンシステムで提供し、人事担当者の月次工数を大幅に削減した業務自動化DX。",
+    tags: ["Slack Bot", "Node.js", "勤怠管理API", "承認フロー自動化"],
+    url: "https://signal-arc-lp.vercel.app/slack-bot.html",
+    urlLabel: "DX詳細ページを見る",
+    accent: "var(--brand)",
+    accentS: "var(--brand-s)",
+    accentL: "var(--brand-l)",
+  },
+  {
+    id: "db-otp",
+    eyebrow: "DX実績 #02",
+    category: "セキュリティ強化 × DB認証刷新",
+    title: "DBログインワンタイムパス化DX",
+    description:
+      "全員で使い回す共有パスワード運用からの脱却。個人単位のワンタイムパスワード発行・失効管理・アクセスログ記録をシステム化し、セキュリティインシデントリスクを排除。コンプライアンス要件への対応を実現。",
+    tags: ["OTP認証", "アクセス管理", "セキュリティDX", "ログ記録"],
+    url: "https://slide-tools.vercel.app/outputs/shared-pw-to-individual-lp/",
+    urlLabel: "DX詳細ページを見る",
+    accent: "var(--teal)",
+    accentS: "var(--teal-s)",
+    accentL: "var(--teal-l)",
+  },
+];
+
+/* ─── Signal Craft（自社SaaS） ───────────────────── */
 const featured = {
   id: "signal-craft",
   category: "コンテンツ生成 SaaS",
@@ -11,30 +44,22 @@ const featured = {
   tags: ["Next.js", "AI", "SaaS", "マルチプラットフォーム", "自動生成"],
   pricing: [
     { plan: "Free", price: "¥0", highlight: false },
-    { plan: "Pro",  price: "¥4,980/月", highlight: true },
+    { plan: "Pro", price: "¥4,980/月", highlight: true },
     { plan: "Business", price: "¥14,800/月", highlight: false },
-  ],
-  features: [
-    "31問インタビューで声を学習",
-    "ペルソナ設計 × テーマ管理",
-    "AI サムネイル自動生成",
-    "URL 解析リサーチツール",
-    "毎朝5時に下書き自動生成（Pro）",
-    "チーム対応 3プロジェクト（Business）",
   ],
 };
 
+/* ─── その他実績 ──────────────────────────────────── */
 const works = [
   {
     id: "futuremind-recruit",
     category: "業務自動化システム",
     title: "採用業務自動化（FUTUREMIND）",
     description:
-      "HERP・SmartHR・求人ボックス・Airwork・ジョブメドレー・Gmail・Google カレンダーをNode.js/API/スクレイピングで統合。Slack UIのボタン操作1つで採用24業務が半自動〜全自動で完結する常時稼働型システムを構築。担当者2名で月100件超の応募者を管理できる体制を実現。",
-    tags: ["Node.js", "Slack Bot", "HERP", "SmartHR", "API統合", "スクレイピング", "業務自動化"],
+      "HERP・SmartHR・求人ボックス・Airwork・ジョブメドレー・Gmail・Google カレンダーをNode.js/API/スクレイピングで統合。Slack UIのボタン操作1つで採用24業務が半自動〜全自動で完結する常時稼働型システムを構築。",
+    tags: ["Node.js", "Slack Bot", "HERP", "SmartHR", "API統合", "業務自動化"],
     status: "client" as const,
     demoUrl: "",
-    demoNote: "",
     images: [] as string[],
   },
   {
@@ -58,7 +83,6 @@ const works = [
     tags: ["Next.js", "AI", "Dify", "n8n", "自動化"],
     status: "private" as const,
     demoUrl: "",
-    demoNote: "",
     images: [
       "/images/works/matoi-dashboard.png",
       "/images/works/matoi-ai.png",
@@ -75,7 +99,6 @@ const works = [
     tags: ["LINE Bot", "AI", "管理画面", "Cloud Run"],
     status: "client" as const,
     demoUrl: "",
-    demoNote: "",
     images: ["/images/works/hikitsuke-admin.png"],
   },
   {
@@ -87,7 +110,6 @@ const works = [
     tags: ["LINE Bot", "自動化", "Cloud Run"],
     status: "live" as const,
     demoUrl: "",
-    demoNote: "",
     images: ["/images/works/rakumado-line-3.jpg", "/images/works/rakumado-line-1.jpg", "/images/works/rakumado-line-2.jpg"],
   },
   {
@@ -99,19 +121,6 @@ const works = [
     tags: ["LINE Bot", "自動見積もり", "業務効率化"],
     status: "live" as const,
     demoUrl: "",
-    demoNote: "",
-    images: [] as string[],
-  },
-  {
-    id: "cc-company",
-    category: "AIエージェント管理システム",
-    title: "cc-company — AI Agent Ops",
-    description:
-      "19体のAIエージェントを統括するオーケストレーションシステム。朝ルーティン・PM・面接対策・コンテンツ生成など全業務をClaude Codeベースのエージェントで自動化。システム全体のステータスをリアルタイムダッシュボードで可視化。",
-    tags: ["Claude Code", "AIエージェント", "自動化", "オーケストレーション"],
-    status: "private" as const,
-    demoUrl: "/cc-company-report/index.html",
-    demoNote: "※ システムステータスレポート",
     images: [] as string[],
   },
   {
@@ -119,8 +128,8 @@ const works = [
     category: "OSS / AIエージェントキット",
     title: "agent-kit",
     description:
-      "自社業務設計に実際に使っている19のAIエージェントをポータブルパッケージとして公開。bash install.sh 1コマンドで任意のMacに展開できる設計。テンプレート方式で絶対パス依存を排除し、チームや顧客への配布にも対応。「AI導入設計を提案する側が、自ら実践している」実証として公開。",
-    tags: ["Claude Code", "Shell Script", "AIエージェント", "OSS", "ポータブル設計"],
+      "自社業務設計に実際に使っている19のAIエージェントをポータブルパッケージとして公開。bash install.sh 1コマンドで任意のMacに展開できる設計。テンプレート方式で絶対パス依存を排除し、チームや顧客への配布にも対応。",
+    tags: ["Claude Code", "Shell Script", "AIエージェント", "OSS"],
     status: "live" as const,
     demoUrl: "https://github.com/signal-arc-coder-masashi/agent-kit",
     demoNote: "GitHub で見る",
@@ -129,112 +138,361 @@ const works = [
 ];
 
 const statusLabel = {
-  live:    { label: "稼働中",          color: "bg-emerald-50 text-emerald-600 border-emerald-200" },
-  client:  { label: "クライアント専用", color: "bg-blue-50 text-blue-600 border-blue-200" },
-  private: { label: "プライベート運用", color: "bg-violet-50 text-violet-600 border-violet-200" },
-  development: { label: "開発中",      color: "bg-amber-50 text-amber-600 border-amber-200" },
+  live:    { label: "稼働中",          bg: "var(--ok-s)",   color: "var(--ok)",   border: "var(--ok-l)" },
+  client:  { label: "クライアント専用", bg: "var(--brand-s)", color: "var(--brand)", border: "var(--brand-l)" },
+  private: { label: "プライベート運用", bg: "#F0EBF8",        color: "#7C3AED",      border: "#C4B5FD" },
+  development: { label: "開発中",      bg: "var(--send-s)", color: "var(--send)", border: "var(--send-l)" },
 };
 
 export default function Works() {
   return (
-    <section id="works" className="bg-white py-28">
+    <section
+      id="works"
+      style={{
+        background: "var(--surface)",
+        borderTop: "1px solid var(--brand-l)",
+        padding: "88px 0",
+      }}
+    >
       <div className="max-w-6xl mx-auto px-6">
-        <div className="flex items-center gap-4 mb-14">
-          <span className="text-xs font-semibold tracking-[0.3em] text-blue-600 uppercase">Works</span>
-          <div className="flex-1 h-px bg-slate-100" />
-        </div>
+        <div className="sec-eyebrow">Works</div>
 
-        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+        <h2
+          style={{
+            fontFamily: "var(--jp)",
+            fontWeight: 900,
+            fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
+            letterSpacing: "-.025em",
+            color: "var(--ink)",
+            marginBottom: "1rem",
+          }}
+        >
           制作・開発実績
         </h2>
-        <p className="text-sm text-slate-500 mb-14 max-w-xl leading-relaxed">
+        <p
+          style={{
+            fontSize: ".88rem",
+            color: "var(--muted)",
+            lineHeight: 1.85,
+            maxWidth: 480,
+            marginBottom: "3.5rem",
+          }}
+        >
           現場のボトルネックを起点に設計した、実務で稼働するシステムです。
         </p>
 
-        {/* Featured: Signal Craft */}
+        {/* ── DX Featured 2件 ── */}
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          {dxFeatured.map((dx) => (
+            <a
+              key={dx.id}
+              href={dx.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                background: "var(--surface)",
+                border: "1px solid var(--brand-l)",
+                borderRadius: 16,
+                overflow: "hidden",
+                textDecoration: "none",
+                boxShadow: "var(--shadow)",
+                transition: "transform .2s, box-shadow .2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-3px)";
+                e.currentTarget.style.boxShadow = "var(--shadow-lift)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "none";
+                e.currentTarget.style.boxShadow = "var(--shadow)";
+              }}
+            >
+              {/* Top gradient bar */}
+              <div
+                style={{
+                  height: 4,
+                  background: `linear-gradient(90deg, ${dx.accent}, var(--teal))`,
+                }}
+              />
+
+              <div style={{ padding: "28px", flex: 1, display: "flex", flexDirection: "column" }}>
+                {/* Eyebrow */}
+                <div
+                  style={{
+                    fontFamily: "var(--mono)",
+                    fontSize: ".54rem",
+                    letterSpacing: ".22em",
+                    textTransform: "uppercase",
+                    color: dx.accent,
+                    marginBottom: 12,
+                  }}
+                >
+                  {dx.eyebrow}
+                </div>
+
+                <p
+                  style={{
+                    fontSize: ".7rem",
+                    color: "var(--subtle)",
+                    marginBottom: 6,
+                    letterSpacing: ".04em",
+                  }}
+                >
+                  {dx.category}
+                </p>
+
+                <h3
+                  style={{
+                    fontFamily: "var(--jp)",
+                    fontWeight: 900,
+                    fontSize: "1.4rem",
+                    color: "var(--ink)",
+                    marginBottom: 14,
+                    letterSpacing: "-.02em",
+                  }}
+                >
+                  {dx.title}
+                </h3>
+
+                <p
+                  style={{
+                    fontSize: ".84rem",
+                    color: "var(--muted)",
+                    lineHeight: 1.85,
+                    marginBottom: 20,
+                    flex: 1,
+                  }}
+                >
+                  {dx.description}
+                </p>
+
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 20 }}>
+                  {dx.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      style={{
+                        fontFamily: "var(--mono)",
+                        fontSize: ".56rem",
+                        letterSpacing: ".1em",
+                        background: dx.accentS,
+                        color: dx.accent,
+                        border: `1px solid ${dx.accentL}`,
+                        padding: "3px 10px",
+                        borderRadius: 999,
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                    fontSize: ".78rem",
+                    fontWeight: 700,
+                    color: dx.accent,
+                  }}
+                >
+                  {dx.urlLabel}
+                  <svg style={{ width: 14, height: 14 }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        {/* ── Signal Craft（自社SaaS Featured） ── */}
         <a
           href={featured.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="mb-8 rounded-2xl overflow-hidden bg-slate-900 shadow-xl hover:shadow-2xl transition-shadow block group"
+          style={{
+            display: "block",
+            marginBottom: "3rem",
+            borderRadius: 18,
+            overflow: "hidden",
+            background: "var(--ink)",
+            boxShadow: "var(--shadow-lift)",
+            textDecoration: "none",
+            transition: "transform .2s, box-shadow .2s",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "translateY(-2px)";
+            e.currentTarget.style.boxShadow = "0 8px 40px rgba(10,30,60,.32)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "none";
+            e.currentTarget.style.boxShadow = "var(--shadow-lift)";
+          }}
         >
           <div className="grid md:grid-cols-5">
-            {/* Left: コンテンツ */}
-            <div className="md:col-span-3 p-8 md:p-10 flex flex-col">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="text-xs font-bold tracking-[0.25em] text-blue-400 uppercase">Featured Product</span>
-                <span className="text-xs border border-emerald-500/50 text-emerald-400 px-2.5 py-1 rounded-full font-medium">
+            {/* Left */}
+            <div className="md:col-span-3" style={{ padding: "40px 40px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+                <span
+                  style={{
+                    fontFamily: "var(--mono)",
+                    fontSize: ".56rem",
+                    letterSpacing: ".22em",
+                    textTransform: "uppercase",
+                    color: "var(--brand-b)",
+                  }}
+                >
+                  Featured Product
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--mono)",
+                    fontSize: ".56rem",
+                    letterSpacing: ".1em",
+                    border: "1px solid var(--ok-l)",
+                    color: "var(--ok)",
+                    padding: "2px 10px",
+                    borderRadius: 999,
+                  }}
+                >
                   稼働中
                 </span>
               </div>
 
-              <p className="text-xs text-slate-500 mb-1 tracking-wide">{featured.category}</p>
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-5 tracking-tight">
+              <p style={{ fontSize: ".7rem", color: "var(--subtle)", marginBottom: 6 }}>
+                {featured.category}
+              </p>
+              <h3
+                style={{
+                  fontFamily: "var(--jp)",
+                  fontWeight: 900,
+                  fontSize: "clamp(1.4rem, 3vw, 2rem)",
+                  color: "#fff",
+                  marginBottom: 16,
+                  letterSpacing: "-.02em",
+                }}
+              >
                 {featured.title}
               </h3>
 
-              <p className="text-sm text-slate-300 leading-7 mb-7 flex-1">
+              <p style={{ fontSize: ".84rem", color: "rgba(255,255,255,.7)", lineHeight: 1.85, marginBottom: 20 }}>
                 {featured.description}
               </p>
 
-              <div className="flex flex-wrap gap-2 mb-7">
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 24 }}>
                 {featured.tags.map((tag) => (
-                  <span key={tag} className="text-xs bg-white/10 text-slate-300 px-2.5 py-1 rounded">
+                  <span
+                    key={tag}
+                    style={{
+                      fontFamily: "var(--mono)",
+                      fontSize: ".56rem",
+                      letterSpacing: ".1em",
+                      background: "rgba(255,255,255,.08)",
+                      color: "rgba(255,255,255,.7)",
+                      padding: "3px 10px",
+                      borderRadius: 6,
+                    }}
+                  >
                     {tag}
                   </span>
                 ))}
               </div>
 
               {/* 料金プラン */}
-              <div className="flex gap-3 mb-8">
+              <div style={{ display: "flex", gap: 10, marginBottom: 28 }}>
                 {featured.pricing.map((p) => (
                   <div
                     key={p.plan}
-                    className={`rounded-lg px-4 py-3 text-center ${
-                      p.highlight
-                        ? "bg-blue-600/30 border border-blue-500/50"
-                        : "bg-white/5 border border-white/10"
-                    }`}
+                    style={{
+                      borderRadius: 10,
+                      padding: "10px 16px",
+                      textAlign: "center",
+                      background: p.highlight ? "rgba(22,102,190,.3)" : "rgba(255,255,255,.05)",
+                      border: p.highlight ? "1px solid var(--brand-b)" : "1px solid rgba(255,255,255,.1)",
+                    }}
                   >
-                    <p className={`text-xs mb-1 ${p.highlight ? "text-blue-300" : "text-slate-500"}`}>
+                    <p
+                      style={{
+                        fontFamily: "var(--mono)",
+                        fontSize: ".54rem",
+                        letterSpacing: ".12em",
+                        color: p.highlight ? "var(--brand-b)" : "var(--subtle)",
+                        marginBottom: 4,
+                      }}
+                    >
                       {p.plan}
                     </p>
-                    <p className="text-sm font-bold text-white whitespace-nowrap">{p.price}</p>
+                    <p style={{ fontSize: ".82rem", fontWeight: 700, color: "#fff", whiteSpace: "nowrap" }}>
+                      {p.price}
+                    </p>
                   </div>
                 ))}
               </div>
 
-              <span className="inline-flex items-center gap-2 bg-white text-slate-900 text-sm font-semibold px-6 py-3 rounded-lg group-hover:bg-slate-100 transition-colors self-start">
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  background: "#fff",
+                  color: "var(--ink)",
+                  fontSize: ".82rem",
+                  fontWeight: 700,
+                  padding: "10px 20px",
+                  borderRadius: 8,
+                }}
+              >
                 サービスを見る
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg style={{ width: 14, height: 14 }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </span>
             </div>
 
             {/* Right: スクリーンショット */}
-            <div className="md:col-span-2 border-t md:border-t-0 md:border-l border-white/10 overflow-hidden flex flex-col">
-              {/* ブラウザ風ヘッダー */}
-              <div className="flex items-center gap-1.5 px-4 py-2.5 bg-white/5 border-b border-white/10 shrink-0">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
-                <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
-                <span className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
-                <span className="ml-3 text-xs text-slate-500 truncate">signal-craft.net</span>
+            <div
+              className="md:col-span-2"
+              style={{
+                borderTop: "1px solid rgba(255,255,255,.08)",
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  padding: "10px 16px",
+                  background: "rgba(255,255,255,.04)",
+                  borderBottom: "1px solid rgba(255,255,255,.08)",
+                  flexShrink: 0,
+                }}
+              >
+                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "rgba(255,100,100,.6)" }} />
+                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "rgba(255,200,0,.6)" }} />
+                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "rgba(0,200,100,.6)" }} />
+                <span style={{ marginLeft: 12, fontSize: ".62rem", color: "var(--subtle)", fontFamily: "var(--mono)" }}>
+                  signal-craft.net
+                </span>
               </div>
-              {/* スクリーンショット */}
-              <div className="flex-1 overflow-hidden">
+              <div style={{ flex: 1, overflow: "hidden" }}>
                 <img
                   src="/images/works/signal-craft-top.png"
                   alt="Signal Craft スクリーンショット"
-                  className="w-full h-full object-cover object-top"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
                 />
               </div>
             </div>
           </div>
         </a>
 
-        {/* Other works */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* ── その他実績グリッド ── */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {works.map((work) => {
             const status = statusLabel[work.status];
             const hasImages = work.images.length > 0;
@@ -242,52 +500,122 @@ export default function Works() {
             return (
               <div
                 key={work.id}
-                className="group border border-slate-100 rounded-xl overflow-hidden hover:shadow-lg transition-shadow bg-white flex flex-col"
+                style={{
+                  background: "var(--surface)",
+                  border: "1px solid var(--brand-l)",
+                  borderRadius: 14,
+                  overflow: "hidden",
+                  boxShadow: "var(--shadow)",
+                  display: "flex",
+                  flexDirection: "column",
+                  transition: "transform .2s, box-shadow .2s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                  e.currentTarget.style.boxShadow = "var(--shadow-lift)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "none";
+                  e.currentTarget.style.boxShadow = "var(--shadow)";
+                }}
               >
                 {hasImages && <ImageSlider images={work.images} title={work.title} />}
 
-                <div className="bg-slate-50 px-6 py-5 border-b border-slate-100">
-                  <div className="flex items-start justify-between gap-3">
+                <div
+                  style={{
+                    background: "var(--surface-2)",
+                    padding: "16px 20px",
+                    borderBottom: "1px solid var(--brand-l)",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10 }}>
                     <div>
-                      <p className="text-xs text-slate-400 mb-1 tracking-wide">{work.category}</p>
-                      <h3 className="text-sm font-bold text-slate-800 leading-snug">{work.title}</h3>
+                      <p style={{ fontSize: ".62rem", color: "var(--subtle)", marginBottom: 4, letterSpacing: ".04em" }}>
+                        {work.category}
+                      </p>
+                      <h3 style={{ fontFamily: "var(--jp)", fontWeight: 900, fontSize: ".9rem", color: "var(--ink)", lineHeight: 1.4 }}>
+                        {work.title}
+                      </h3>
                     </div>
-                    <span className={`shrink-0 text-xs border px-2.5 py-1 rounded-full font-medium ${status.color}`}>
+                    <span
+                      style={{
+                        flexShrink: 0,
+                        fontFamily: "var(--mono)",
+                        fontSize: ".52rem",
+                        letterSpacing: ".08em",
+                        background: status.bg,
+                        color: status.color,
+                        border: `1px solid ${status.border}`,
+                        padding: "3px 10px",
+                        borderRadius: 999,
+                        whiteSpace: "nowrap",
+                      }}
+                    >
                       {status.label}
                     </span>
                   </div>
                 </div>
 
-                <div className="px-6 py-5 flex-1 flex flex-col">
-                  <p className="text-sm text-slate-500 leading-7 mb-5 flex-1">{work.description}</p>
+                <div style={{ padding: "20px", flex: 1, display: "flex", flexDirection: "column" }}>
+                  <p style={{ fontSize: ".82rem", color: "var(--muted)", lineHeight: 1.85, marginBottom: 16, flex: 1 }}>
+                    {work.description}
+                  </p>
 
-                  <div className="flex flex-wrap gap-1.5 mb-5">
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginBottom: 16 }}>
                     {work.tags.map((tag) => (
-                      <span key={tag} className="text-xs bg-slate-100 text-slate-500 px-2.5 py-1 rounded">
+                      <span
+                        key={tag}
+                        style={{
+                          fontFamily: "var(--mono)",
+                          fontSize: ".52rem",
+                          letterSpacing: ".08em",
+                          background: "var(--brand-s)",
+                          color: "var(--brand)",
+                          border: "1px solid var(--brand-l)",
+                          padding: "2px 8px",
+                          borderRadius: 999,
+                        }}
+                      >
                         {tag}
                       </span>
                     ))}
                   </div>
 
                   {work.demoUrl ? (
-                    <div className="flex flex-col gap-1.5">
-                      <a
-                        href={work.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-700 hover:text-slate-900 border border-slate-200 px-4 py-2 rounded hover:border-slate-400 transition-colors self-start"
-                      >
-                        デモを見る
-                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                      </a>
-                      {work.demoNote && (
-                        <p className="text-xs text-slate-400">{work.demoNote}</p>
-                      )}
-                    </div>
+                    <a
+                      href={work.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 5,
+                        fontSize: ".72rem",
+                        fontWeight: 700,
+                        color: "var(--brand)",
+                        border: "1px solid var(--brand-l)",
+                        padding: "7px 14px",
+                        borderRadius: 7,
+                        textDecoration: "none",
+                        alignSelf: "flex-start",
+                        transition: "border-color .2s, background .2s",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = "var(--brand)";
+                        e.currentTarget.style.background = "var(--brand-s)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = "var(--brand-l)";
+                        e.currentTarget.style.background = "transparent";
+                      }}
+                    >
+                      デモを見る
+                      <svg style={{ width: 12, height: 12 }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
                   ) : (
-                    <span className="text-xs text-slate-300">
+                    <span style={{ fontSize: ".7rem", color: "var(--subtle)" }}>
                       {work.status === "client"  ? "※ ご依頼者様限定でログイン提供" : ""}
                       {work.status === "private" ? "※ 自社運用中" : ""}
                     </span>

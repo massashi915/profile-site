@@ -1,13 +1,57 @@
 @import "tailwindcss";
 
+/* ── Signal Arc Design System ── */
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+  /* Backgrounds */
+  --bg:       #F2F8FE;
+  --bg-1:     #EAF3FC;
+  --bg-2:     #DFF0FB;
+
+  /* Text */
+  --ink:      #0A1E3C;
+  --ink-s:    #1E3D60;
+  --muted:    #4A6B90;
+  --subtle:   #7A9BB8;
+
+  /* Brand = Medical Blue */
+  --brand:    #1666BE;
+  --brand-d:  #0E4E96;
+  --brand-b:  #4290D8;
+  --brand-s:  #D8EEFF;
+  --brand-l:  #A8D4F8;
+
+  /* Accent = Medical Teal */
+  --teal:     #0A9B88;
+  --teal-s:   #D6F5EF;
+  --teal-l:   #8ED8CF;
+
+  /* Semantic */
+  --ok:       #0A9B88; --ok-s:#D6F5EF; --ok-l:#8ED8CF;
+  --send:     #D97A1A; --send-s:#FEF3E2; --send-l:#F0C280;
+  --deny:     #CC3333; --deny-s:#FDEAEA; --deny-l:#EFAAAA;
+
+  /* Borders / Surfaces */
+  --line:     rgba(22,102,190,.12);
+  --line-a:   rgba(22,102,190,.22);
+  --surface:  #FFFFFF;
+  --surface-2:#F5FAFF;
+
+  /* Shadows */
+  --shadow:      0 1px 3px rgba(10,30,60,.05), 0 12px 32px -14px rgba(10,30,60,.18);
+  --shadow-lift: 0 2px 8px rgba(10,30,60,.08), 0 22px 50px -18px rgba(10,30,60,.26);
+
+  /* Fonts */
+  --jp:      "Noto Sans JP", system-ui, sans-serif;
+  --mono:    "IBM Plex Mono", ui-monospace, monospace;
+  --display: "Cormorant", serif;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--bg);
+  --color-foreground: var(--ink);
+  --font-jp: var(--jp);
+  --font-mono-sa: var(--mono);
+  --font-display: var(--display);
 }
 
 html {
@@ -15,7 +59,62 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--jp);
   -webkit-font-smoothing: antialiased;
+}
+
+/* Section eyebrow component */
+.sec-eyebrow {
+  font-family: var(--mono);
+  font-size: .58rem;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--brand);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.sec-eyebrow::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--brand);
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+/* Signal Arc card */
+.sa-card {
+  background: var(--surface);
+  border: 1px solid var(--brand-l);
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.sa-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lift);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .45s ease, transform .45s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
 }

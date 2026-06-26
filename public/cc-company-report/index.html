@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>cc-company — System Status Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080C10;
+    --bg2: #0D1117;
+    --bg3: #121820;
+    --border: #1E2A35;
+    --border2: #243040;
+    --amber: #F5A623;
+    --amber-dim: #8A5E14;
+    --cyan: #00D4FF;
+    --cyan-dim: #00506A;
+    --green: #39FF14;
+    --green-dim: #1A5C0A;
+    --red: #FF3B3B;
+    --red-dim: #6B1010;
+    --text: #C8D8E8;
+    --text-dim: #4A6070;
+    --text-bright: #EAF4FF;
+    --mono: 'IBM Plex Mono', monospace;
+    --serif: 'Noto Serif JP', serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* Grid texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Scan line effect */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    animation: scanline 6s linear infinite;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.4;
+  }
+
+  @keyframes scanline {
+    0% { top: -2px; }
+    100% { top: 100vh; }
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 48px 80px;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 24px;
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border2);
+    position: relative;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 200px;
+    height: 1px;
+    background: var(--amber);
+  }
+
+  .header-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .header-badge::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--amber);
+    border-radius: 50%;
+    animation: pulse-amber 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-amber {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(245,166,35,0.4); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(245,166,35,0); }
+  }
+
+  .header-title {
+    font-family: var(--serif);
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--text-bright);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .header-title span {
+    color: var(--amber);
+  }
+
+  .header-sub {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .header-meta {
+    text-align: right;
+  }
+
+  .header-date {
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+  }
+
+  .header-version {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--cyan);
+    letter-spacing: -0.03em;
+    margin-top: 4px;
+  }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ===== STATUS OVERVIEW ===== */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .stat-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 24px 20px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.6s ease both;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent-color, var(--amber));
+  }
+
+  .stat-card:nth-child(1) { --accent-color: var(--amber); animation-delay: 0.05s; }
+  .stat-card:nth-child(2) { --accent-color: var(--cyan); animation-delay: 0.1s; }
+  .stat-card:nth-child(3) { --accent-color: var(--green); animation-delay: 0.15s; }
+  .stat-card:nth-child(4) { --accent-color: #A855F7; animation-delay: 0.2s; }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .stat-label {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .stat-value {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--accent-color, var(--amber));
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .stat-unit {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-dim);
+    margin-left: 4px;
+  }
+
+  .stat-desc {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+
+  /* ===== MAIN GRID ===== */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  /* ===== AUTOMATION TIMELINE ===== */
+  .panel {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 28px;
+    animation: fadeInUp 0.6s ease both;
+    animation-delay: 0.25s;
+  }
+
+  .panel-title {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-bright);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .panel-title .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--amber);
+    animation: pulse-amber 2s infinite;
+    flex-shrink: 0;
+  }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 20px;
+    position: relative;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 79px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--border2);
+  }
+
+  .timeline-item:last-child::before {
+    display: none;
+  }
+
+  .timeline-time {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--amber);
+    letter-spacing: 0.05em;
+    padding: 20px 0;
+    text-align: right;
+  }
+
+  .timeline-content {
+    padding: 16px 0 16px 20px;
+    position: relative;
+  }
+
+  .timeline-content::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 24px;
+    width: 8px;
+    height: 8px;
+    background: var(--bg2);
+    border: 2px solid var(--amber);
+    border-radius: 50%;
+    transform: translateX(-4px);
+    z-index: 1;
+  }
+
+  .timeline-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-bright);
+    margin-bottom: 6px;
+  }
+
+  .timeline-file {
+    font-size: 10px;
+    color: var(--cyan);
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    opacity: 0.7;
+  }
+
+  .timeline-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .timeline-items li {
+    font-size: 11px;
+    color: var(--text-dim);
+    padding-left: 12px;
+    position: relative;
+  }
+
+  .timeline-items li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--text-dim);
+  }
+
+  /* ===== SCORE GAUGES ===== */
+  .gauges-panel {
+    animation: fadeInUp 0.6s ease both;
+    animation-delay: 0.3s;
+  }
+
+  .gauge-item {
+    margin-bottom: 28px;
+  }
+
+  .gauge-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+
+  .gauge-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--text);
+  }
+
+  .gauge-value {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .gauge-track {
+    height: 6px;
+    background: var(--border2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gauge-fill {
+    height: 100%;
+    position: relative;
+    transform-origin: left;
+    animation: gauge-grow 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .gauge-item:nth-child(1) .gauge-fill { background: var(--amber); animation-delay: 0.4s; }
+  .gauge-item:nth-child(2) .gauge-fill { background: var(--cyan); animation-delay: 0.5s; }
+  .gauge-item:nth-child(3) .gauge-fill { background: var(--green); animation-delay: 0.6s; }
+  .gauge-item:nth-child(4) .gauge-fill { background: #A855F7; animation-delay: 0.7s; }
+
+  .gauge-item:nth-child(1) .gauge-value { color: var(--amber); }
+  .gauge-item:nth-child(2) .gauge-value { color: var(--cyan); }
+  .gauge-item:nth-child(3) .gauge-value { color: var(--green); }
+  .gauge-item:nth-child(4) .gauge-value { color: #A855F7; }
+
+  @keyframes gauge-grow {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  .gauge-sub {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 5px;
+    letter-spacing: 0.05em;
+  }
+
+  /* Radar chart */
+  .radar-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+  }
+
+  .radar-wrap svg {
+    overflow: visible;
+  }
+
+  /* ===== AGENTS GRID ===== */
+  .agents-section {
+    margin-bottom: 40px;
+  }
+
+  .agents-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .agent-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 16px 12px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+    animation: fadeInUp 0.5s ease both;
+    cursor: default;
+  }
+
+  .agent-card:hover {
+    border-color: var(--cyan);
+    transform: translateY(-2px);
+  }
+
+  .agent-card:hover .agent-status-pulse {
+    animation-duration: 0.5s;
+  }
+
+  .agent-card:nth-child(1) { animation-delay: 0.35s; }
+  .agent-card:nth-child(2) { animation-delay: 0.4s; }
+  .agent-card:nth-child(3) { animation-delay: 0.45s; }
+  .agent-card:nth-child(4) { animation-delay: 0.5s; }
+  .agent-card:nth-child(5) { animation-delay: 0.55s; }
+  .agent-card:nth-child(6) { animation-delay: 0.6s; }
+  .agent-card:nth-child(7) { animation-delay: 0.65s; }
+
+  .agent-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: var(--cyan);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+
+  .agent-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .agent-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .agent-name {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+
+  .agent-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .agent-status-pulse {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse-green 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-green {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .agent-status-text {
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    color: var(--green);
+    text-transform: uppercase;
+  }
+
+  /* Manual agents */
+  .manual-agents {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 24px 28px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 24px;
+    align-items: center;
+    animation: fadeInUp 0.5s ease both;
+    animation-delay: 0.7s;
+  }
+
+  .manual-count {
+    font-size: 72px;
+    font-weight: 700;
+    color: var(--text-dim);
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .manual-info {
+  }
+
+  .manual-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .manual-title {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-bright);
+    margin-bottom: 12px;
+  }
+
+  .manual-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .manual-tag {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    border: 1px solid var(--border2);
+    color: var(--text-dim);
+  }
+
+  /* ===== STRENGTHS / LIMITS ===== */
+  .eval-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  .eval-panel {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 24px 28px;
+    animation: fadeInUp 0.5s ease both;
+  }
+
+  .eval-panel:nth-child(1) {
+    animation-delay: 0.5s;
+    border-top: 2px solid var(--green);
+  }
+
+  .eval-panel:nth-child(2) {
+    animation-delay: 0.55s;
+    border-top: 2px solid var(--red);
+  }
+
+  .eval-panel-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .eval-panel:nth-child(1) .eval-panel-title { color: var(--green); }
+  .eval-panel:nth-child(2) .eval-panel-title { color: var(--red); }
+
+  .eval-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .eval-list li {
+    font-size: 13px;
+    color: var(--text);
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .eval-panel:nth-child(1) .eval-list li::before {
+    content: '▲';
+    position: absolute;
+    left: 0;
+    font-size: 8px;
+    color: var(--green);
+    top: 3px;
+  }
+
+  .eval-panel:nth-child(2) .eval-list li::before {
+    content: '▼';
+    position: absolute;
+    left: 0;
+    font-size: 8px;
+    color: var(--red);
+    top: 3px;
+  }
+
+  /* ===== ARCHITECTURE DIAGRAM ===== */
+  .arch-section {
+    margin-bottom: 40px;
+    animation: fadeInUp 0.5s ease both;
+    animation-delay: 0.6s;
+  }
+
+  .arch-panel {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 32px 36px;
+  }
+
+  .arch-flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    justify-content: center;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  .arch-node {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    padding: 14px 20px;
+    text-align: center;
+    min-width: 120px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .arch-node:hover {
+    border-color: var(--amber);
+  }
+
+  .arch-node-icon {
+    font-size: 20px;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .arch-node-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 2px;
+  }
+
+  .arch-node-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-bright);
+  }
+
+  .arch-node.highlight {
+    border-color: var(--amber);
+  }
+
+  .arch-node.highlight::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border: 1px solid var(--amber);
+    opacity: 0.3;
+  }
+
+  .arch-arrow {
+    font-size: 16px;
+    color: var(--amber-dim);
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .arch-arrow.active {
+    color: var(--amber);
+    animation: arrow-pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes arrow-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .arch-branch {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .arch-branch .arch-node {
+    min-width: 100px;
+    padding: 10px 14px;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeInUp 0.5s ease both;
+    animation-delay: 0.8s;
+  }
+
+  .footer-left {
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+  }
+
+  .footer-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .status-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .status-badge .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .status-badge.online .dot { background: var(--green); animation: pulse-green 2s infinite; }
+  .status-badge.online { color: var(--green); }
+  .status-badge.warn .dot { background: var(--amber); animation: pulse-amber 2s infinite; }
+  .status-badge.warn { color: var(--amber); }
+
+  /* Noise texture overlay */
+  .noise {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Corner decoration */
+  .corner-deco {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .corner-deco.tl {
+    top: 20px; left: 20px;
+    width: 60px; height: 60px;
+    border-top: 1px solid var(--amber-dim);
+    border-left: 1px solid var(--amber-dim);
+  }
+
+  .corner-deco.br {
+    bottom: 20px; right: 20px;
+    width: 60px; height: 60px;
+    border-bottom: 1px solid var(--cyan-dim);
+    border-right: 1px solid var(--cyan-dim);
+  }
+
+  /* Radar SVG animation */
+  .radar-path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw-radar 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+  }
+
+  @keyframes draw-radar {
+    to { stroke-dashoffset: 0; }
+  }
+
+  .radar-fill {
+    opacity: 0;
+    animation: fade-radar-fill 0.5s ease 1.8s both;
+  }
+
+  @keyframes fade-radar-fill {
+    to { opacity: 0.15; }
+  }
+</style>
+</head>
+<body>
+
+<div class="noise"></div>
+<div class="corner-deco tl"></div>
+<div class="corner-deco br"></div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div>
+      <div class="header-badge">SYSTEM STATUS REPORT · 2026-03-21</div>
+      <h1 class="header-title">cc-<span>company</span></h1>
+      <div class="header-sub">自律型AIカンパニーシステム — KISHINO MASASHI</div>
+    </div>
+    <div class="header-meta">
+      <div class="header-date">BUILD DATE / 2026.03.21</div>
+      <div class="header-version">v2.1</div>
+    </div>
+  </header>
+
+  <!-- STAT CARDS -->
+  <div class="section-label">OVERVIEW METRICS</div>
+  <div class="overview-grid">
+    <div class="stat-card">
+      <div class="stat-label">TOTAL AGENTS</div>
+      <div class="stat-value">25<span class="stat-unit">体</span></div>
+      <div class="stat-desc">Chatwork: 7体 自動<br>Claude Code: 18体 手動</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">AUTO ROUTINES</div>
+      <div class="stat-value">3<span class="stat-unit">本</span></div>
+      <div class="stat-desc">朝5時 / 5分ポーリング<br>毎月1日 GA4レポート</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">UPTIME STATUS</div>
+      <div class="stat-value">24<span class="stat-unit">h</span></div>
+      <div class="stat-desc">GAS自動稼働中<br>PCオフでも動作</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">OVERALL SCORE</div>
+      <div class="stat-value">77<span class="stat-unit">pt</span></div>
+      <div class="stat-desc">4指標平均<br>拡張性が最高評価</div>
+    </div>
+  </div>
+
+  <!-- MAIN 2-COL GRID -->
+  <div class="main-grid">
+
+    <!-- TIMELINE -->
+    <div class="panel">
+      <div class="panel-title">
+        <span class="dot"></span>
+        自動稼働スケジュール
+      </div>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-time">05:00<br>毎朝</div>
+          <div class="timeline-content">
+            <div class="timeline-name">朝ブリーフィング</div>
+            <div class="timeline-file">morning_routine.gs</div>
+            <ul class="timeline-items">
+              <li>Chatworkタスク積み残し確認</li>
+              <li>Google Calendar 当日予定</li>
+              <li>Chatwork未読ルーム（クライアント優先）</li>
+              <li>Gmail重要メール検出</li>
+              <li>さいたまコレクト添削待ち件数</li>
+              <li>Claude API → 今日のフォーカス提案</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-time">*/5<br>常時</div>
+          <div class="timeline-content">
+            <div class="timeline-name">Chatworkポーリング</div>
+            <div class="timeline-file">claude_agent_bridge.gs</div>
+            <ul class="timeline-items">
+              <li>メッセージを自動判定 → エージェント振り分け</li>
+              <li>Claude Haiku でルーティング</li>
+              <li>Claude Sonnet で回答生成</li>
+              <li>スラッシュコマンド対応</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-time">01日<br>毎月</div>
+          <div class="timeline-content">
+            <div class="timeline-name">GA4月次レポート</div>
+            <div class="timeline-file">taguchi_ga4_monthly.gs</div>
+            <ul class="timeline-items">
+              <li>田口住生活設計室 GA4データ自動集計</li>
+              <li>Google Sheets + Slides 自動出力</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SCORE GAUGES -->
+    <div class="gauges-panel">
+      <div class="panel">
+        <div class="panel-title">
+          <span class="dot" style="background:var(--cyan); animation-name: none; box-shadow: 0 0 6px var(--cyan);"></span>
+          評価スコア
+        </div>
+
+        <div class="gauge-item">
+          <div class="gauge-header">
+            <span class="gauge-label">自動化レベル</span>
+            <span class="gauge-value">65</span>
+          </div>
+          <div class="gauge-track">
+            <div class="gauge-fill" style="width: 65%;"></div>
+          </div>
+          <div class="gauge-sub">GASは自律済み / Claude Codeは手動</div>
+        </div>
+
+        <div class="gauge-item">
+          <div class="gauge-header">
+            <span class="gauge-label">エージェント品質</span>
+            <span class="gauge-value">80</span>
+          </div>
+          <div class="gauge-track">
+            <div class="gauge-fill" style="width: 80%;"></div>
+          </div>
+          <div class="gauge-sub">実データ連動・Sonnetで高精度</div>
+        </div>
+
+        <div class="gauge-item">
+          <div class="gauge-header">
+            <span class="gauge-label">実用性</span>
+            <span class="gauge-value">75</span>
+          </div>
+          <div class="gauge-track">
+            <div class="gauge-fill" style="width: 75%;"></div>
+          </div>
+          <div class="gauge-sub">Chatworkで自然言語インターフェース</div>
+        </div>
+
+        <div class="gauge-item">
+          <div class="gauge-header">
+            <span class="gauge-label">拡張性</span>
+            <span class="gauge-value">90</span>
+          </div>
+          <div class="gauge-track">
+            <div class="gauge-fill" style="width: 90%;"></div>
+          </div>
+          <div class="gauge-sub">エージェント追加・MCP拡張が容易</div>
+        </div>
+
+        <!-- Radar Chart -->
+        <div class="radar-wrap">
+          <svg width="200" height="200" viewBox="-110 -110 220 220">
+            <!-- Grid circles -->
+            <circle cx="0" cy="0" r="100" fill="none" stroke="#1E2A35" stroke-width="1"/>
+            <circle cx="0" cy="0" r="75" fill="none" stroke="#1E2A35" stroke-width="1"/>
+            <circle cx="0" cy="0" r="50" fill="none" stroke="#1E2A35" stroke-width="1"/>
+            <circle cx="0" cy="0" r="25" fill="none" stroke="#1E2A35" stroke-width="1"/>
+            <!-- Axis lines -->
+            <line x1="0" y1="-100" x2="0" y2="100" stroke="#1E2A35" stroke-width="1"/>
+            <line x1="-100" y1="0" x2="100" y2="0" stroke="#1E2A35" stroke-width="1"/>
+            <line x1="-70.7" y1="-70.7" x2="70.7" y2="70.7" stroke="#1E2A35" stroke-width="1"/>
+            <line x1="70.7" y1="-70.7" x2="-70.7" y2="70.7" stroke="#1E2A35" stroke-width="1"/>
+            <!-- Data: auto=65, quality=80, practical=75, extend=90 -->
+            <!-- 4 axes: top, right, bottom, left → auto, quality, practical, extend -->
+            <!-- top: (0, -65), right: (80, 0), bottom: (0, 75), left: (-90, 0) -->
+            <polygon class="radar-fill"
+              points="0,-65 75.6,24.5 -25.9,71.1 -78,-25.4"
+              fill="var(--amber)"
+              stroke="none"
+            />
+            <polygon class="radar-path"
+              points="0,-65 75.6,24.5 -25.9,71.1 -78,-25.4"
+              fill="none"
+              stroke="var(--amber)"
+              stroke-width="2"
+            />
+            <!-- Dots -->
+            <circle cx="0" cy="-65" r="4" fill="var(--amber)"/>
+            <circle cx="75.6" cy="24.5" r="4" fill="var(--cyan)"/>
+            <circle cx="-25.9" cy="71.1" r="4" fill="var(--green)"/>
+            <circle cx="-78" cy="-25.4" r="4" fill="#A855F7"/>
+            <!-- Labels -->
+            <text x="0" y="-82" text-anchor="middle" fill="#F5A623" font-size="8" font-family="IBM Plex Mono">自動化</text>
+            <text x="92" y="28" text-anchor="start" fill="#00D4FF" font-size="8" font-family="IBM Plex Mono">品質</text>
+            <text x="-30" y="92" text-anchor="middle" fill="#39FF14" font-size="8" font-family="IBM Plex Mono">実用性</text>
+            <text x="-105" y="-20" text-anchor="end" fill="#A855F7" font-size="8" font-family="IBM Plex Mono">拡張性</text>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- AGENTS -->
+  <div class="agents-section">
+    <div class="section-label">AUTONOMOUS AGENTS — CHATWORK INTERFACE</div>
+    <div class="agents-grid">
+      <div class="agent-card">
+        <span class="agent-icon">📊</span>
+        <div class="agent-name">PM<br>進捗管理</div>
+        <div class="agent-status">
+          <div class="agent-status-pulse"></div>
+          <span class="agent-status-text">AUTO</span>
+        </div>
+      </div>
+      <div class="agent-card">
+        <span class="agent-icon">📈</span>
+        <div class="agent-name">グロース<br>分析</div>
+        <div class="agent-status">
+          <div class="agent-status-pulse" style="animation-delay:0.3s"></div>
+          <span class="agent-status-text">AUTO</span>
+        </div>
+      </div>
+      <div class="agent-card">
+        <span class="agent-icon">✍️</span>
+        <div class="agent-name">コンテンツ<br>戦略</div>
+        <div class="agent-status">
+          <div class="agent-status-pulse" style="animation-delay:0.6s"></div>
+          <span class="agent-status-text">AUTO</span>
+        </div>
+      </div>
+      <div class="agent-card">
+        <span class="agent-icon">💼</span>
+        <div class="agent-name">セールス<br>戦略</div>
+        <div class="agent-status">
+          <div class="agent-status-pulse" style="animation-delay:0.9s"></div>
+          <span class="agent-status-text">AUTO</span>
+        </div>
+      </div>
+      <div class="agent-card">
+        <span class="agent-icon">⚖️</span>
+        <div class="agent-name">意思決定<br>シミュレーション</div>
+        <div class="agent-status">
+          <div class="agent-status-pulse" style="animation-delay:1.2s"></div>
+          <span class="agent-status-text">AUTO</span>
+        </div>
+      </div>
+      <div class="agent-card">
+        <span class="agent-icon">🎯</span>
+        <div class="agent-name">CVR<br>最適化</div>
+        <div class="agent-status">
+          <div class="agent-status-pulse" style="animation-delay:1.5s"></div>
+          <span class="agent-status-text">AUTO</span>
+        </div>
+      </div>
+      <div class="agent-card" style="border-color: var(--amber-dim);">
+        <span class="agent-icon">🤖</span>
+        <div class="agent-name">汎用<br>アシスタント</div>
+        <div class="agent-status">
+          <div class="agent-status-pulse" style="background:var(--amber); animation-delay:0.4s"></div>
+          <span class="agent-status-text" style="color:var(--amber)">ROUTER</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="manual-agents">
+      <div class="manual-count">18</div>
+      <div class="manual-info">
+        <div class="manual-label">CLAUDE CODE AGENTS / MANUAL ACTIVATION</div>
+        <div class="manual-title">Claude Code 搭載エージェント</div>
+        <div class="manual-tags">
+          <span class="manual-tag">CEO</span>
+          <span class="manual-tag">秘書</span>
+          <span class="manual-tag">PM</span>
+          <span class="manual-tag">面接対策</span>
+          <span class="manual-tag">リサーチ</span>
+          <span class="manual-tag">開発</span>
+          <span class="manual-tag">マーケティング</span>
+          <span class="manual-tag">コンテンツ戦略</span>
+          <span class="manual-tag">セールス設計</span>
+          <span class="manual-tag">意思決定</span>
+          <span class="manual-tag">グロース分析</span>
+          <span class="manual-tag">知識統合</span>
+          <span class="manual-tag">さいたまチェック</span>
+          <span class="manual-tag">職務経歴書更新</span>
+          <span class="manual-tag">日次クローズ</span>
+          <span class="manual-tag">GA4レポート</span>
+          <span class="manual-tag">CVR最適化</span>
+          <span class="manual-tag">チェックイン</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARCHITECTURE -->
+  <div class="arch-section">
+    <div class="section-label">SYSTEM ARCHITECTURE</div>
+    <div class="arch-panel">
+      <div class="arch-flow">
+
+        <div class="arch-node highlight">
+          <span class="arch-node-icon">📥</span>
+          <div class="arch-node-label">INPUT</div>
+          <div class="arch-node-name">Chatwork</div>
+        </div>
+
+        <div class="arch-arrow active">──►</div>
+
+        <div class="arch-node">
+          <span class="arch-node-icon">⚡</span>
+          <div class="arch-node-label">BRIDGE</div>
+          <div class="arch-node-name">GAS Polling<br><span style="font-size:9px;color:var(--amber)">5分ごと</span></div>
+        </div>
+
+        <div class="arch-arrow active">──►</div>
+
+        <div class="arch-node" style="border-color:var(--amber-dim)">
+          <span class="arch-node-icon">🤖</span>
+          <div class="arch-node-label">ROUTER</div>
+          <div class="arch-node-name">Claude Haiku</div>
+        </div>
+
+        <div class="arch-arrow active">──►</div>
+
+        <div class="arch-branch">
+          <div class="arch-node" style="border-color:var(--cyan-dim)">
+            <div class="arch-node-label">EXPERT</div>
+            <div class="arch-node-name">Claude Sonnet<br><span style="font-size:9px;color:var(--cyan)">専門エージェント</span></div>
+          </div>
+          <div class="arch-node" style="border-color:var(--green-dim)">
+            <div class="arch-node-label">DATA</div>
+            <div class="arch-node-name">実データ連携<br><span style="font-size:9px;color:var(--green)">Cal / Gmail / Task</span></div>
+          </div>
+        </div>
+
+        <div class="arch-arrow active">──►</div>
+
+        <div class="arch-node highlight">
+          <span class="arch-node-icon">📤</span>
+          <div class="arch-node-label">OUTPUT</div>
+          <div class="arch-node-name">Chatwork<br><span style="font-size:9px;color:var(--amber)">自動返信</span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- EVAL GRID -->
+  <div class="section-label">STRENGTHS &amp; LIMITATIONS</div>
+  <div class="eval-grid">
+    <div class="eval-panel">
+      <div class="eval-panel-title">STRENGTHS — 強み</div>
+      <ul class="eval-list">
+        <li>GAS部分は完全自律。PCオフでも24時間稼働し続ける</li>
+        <li>カレンダー・メール・タスクの実データと連動した意思決定支援</li>
+        <li>自然言語でChatworkに送るだけでエージェントが自動判定・応答</li>
+        <li>スキルの自動選択とREADME更新ルールにより品質が自律的に維持される（Phase 1・2実装済み）</li>
+      </ul>
+    </div>
+    <div class="eval-panel">
+      <div class="eval-panel-title">LIMITATIONS — 現在の限界</div>
+      <ul class="eval-list">
+        <li>Claude Code搭載の18体は手動起動が必要。完全自律には未到達</li>
+        <li>エージェント間の情報共有が薄く、それぞれが独立して動作している</li>
+        <li>Obsidianへの知識蓄積はMCP不安定のため未活用（直接書き込みで代替中）</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">
+      cc-company / KISHINO MASASHI — AI COMPANY SYSTEM REPORT — 2026.03.21
+    </div>
+    <div class="footer-right">
+      <div class="status-badge online">
+        <div class="dot"></div>
+        GAS RUNNING
+      </div>
+      <div class="status-badge warn">
+        <div class="dot"></div>
+        CLAUDE CODE STANDBY
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // Counter animation for stat values
+  document.querySelectorAll('.stat-value').forEach(el => {
+    const text = el.textContent;
+    const match = text.match(/^(\d+)/);
+    if (!match) return;
+    const target = parseInt(match[1]);
+    const unit = el.querySelector('.stat-unit');
+    const unitHTML = unit ? unit.outerHTML : '';
+    const suffix = text.replace(match[1], '').replace(unit?.outerHTML || '', '');
+    let start = null;
+    const duration = 1200;
+
+    const animate = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(eased * target);
+      el.innerHTML = current + suffix + unitHTML;
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+
+    setTimeout(() => requestAnimationFrame(animate), 300);
+  });
+
+  // Gauge value counter animation
+  document.querySelectorAll('.gauge-value').forEach(el => {
+    const target = parseInt(el.textContent);
+    let start = null;
+    const duration = 1200;
+
+    const animate = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target);
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+
+    setTimeout(() => requestAnimationFrame(animate), 600);
+  });
+
+  // Add subtle mouse parallax to corner decos
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 10;
+    const y = (e.clientY / window.innerHeight - 0.5) * 10;
+    document.querySelectorAll('.corner-deco').forEach(el => {
+      el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+    });
+  });
+</script>
+</body>
+</html>

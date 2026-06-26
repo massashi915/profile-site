@@ -1,3 +1,5 @@
+"use client";
+
 const strengths = [
   {
     number: "01",
@@ -21,39 +23,118 @@ const strengths = [
 
 export default function Strengths() {
   return (
-    <section id="strengths" className="bg-slate-50 py-16 md:py-28">
+    <section
+      id="strengths"
+      style={{
+        background: "var(--bg-1)",
+        borderTop: "1px solid var(--brand-l)",
+        padding: "88px 0",
+      }}
+    >
       <div className="max-w-6xl mx-auto px-6">
-        <div className="flex items-center gap-4 mb-8 md:mb-14">
-          <span className="text-xs font-semibold tracking-[0.3em] text-blue-600 uppercase">Strengths</span>
-          <div className="flex-1 h-px bg-slate-200" />
-        </div>
+        <div className="sec-eyebrow">Strengths</div>
 
-        <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mb-4">
+        <h2
+          style={{
+            fontFamily: "var(--jp)",
+            fontWeight: 900,
+            fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
+            letterSpacing: "-.025em",
+            color: "var(--ink)",
+            marginBottom: "1rem",
+          }}
+        >
           私が提供できる、3つの強み。
         </h2>
-        <p className="text-sm text-slate-500 mb-8 md:mb-14 max-w-xl leading-relaxed">
+        <p
+          style={{
+            fontSize: ".88rem",
+            color: "var(--muted)",
+            lineHeight: 1.85,
+            maxWidth: 480,
+            marginBottom: "3.5rem",
+          }}
+        >
           技術スキルだけでなく、現場経験・対話力・運用知見を組み合わせた
           トータルな支援が特長です。
         </p>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6">
           {strengths.map((s) => (
             <div
               key={s.number}
-              className="bg-white border border-slate-100 rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow"
+              className="sa-card"
+              style={{
+                paddingTop: 0,
+                overflow: "hidden",
+                position: "relative",
+              }}
             >
-              <span className="text-4xl font-bold text-slate-100 block mb-6 leading-none">
+              {/* Top gradient bar */}
+              <div
+                style={{
+                  height: 4,
+                  background: "linear-gradient(90deg, var(--brand), var(--teal))",
+                  marginLeft: -28,
+                  marginRight: -28,
+                  marginBottom: 28,
+                  marginTop: 0,
+                }}
+              />
+
+              <span
+                style={{
+                  fontFamily: "var(--mono)",
+                  fontSize: "2rem",
+                  fontWeight: 500,
+                  color: "var(--brand-l)",
+                  display: "block",
+                  marginBottom: "1.25rem",
+                  lineHeight: 1,
+                }}
+              >
                 {s.number}
               </span>
-              <h3 className="text-base font-bold text-slate-900 mb-4 leading-snug">
+
+              <h3
+                style={{
+                  fontFamily: "var(--jp)",
+                  fontWeight: 900,
+                  fontSize: "1rem",
+                  color: "var(--ink)",
+                  marginBottom: "1rem",
+                  lineHeight: 1.5,
+                }}
+              >
                 {s.title}
               </h3>
-              <p className="text-sm text-slate-500 leading-7 mb-6">{s.body}</p>
-              <div className="flex flex-wrap gap-2">
+
+              <p
+                style={{
+                  fontSize: ".82rem",
+                  color: "var(--muted)",
+                  lineHeight: 1.85,
+                  marginBottom: "1.5rem",
+                  flex: 1,
+                }}
+              >
+                {s.body}
+              </p>
+
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                 {s.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs bg-slate-100 text-slate-500 px-3 py-1 rounded-full"
+                    style={{
+                      fontFamily: "var(--mono)",
+                      fontSize: ".56rem",
+                      letterSpacing: ".1em",
+                      background: "var(--brand-s)",
+                      color: "var(--brand)",
+                      border: "1px solid var(--brand-l)",
+                      padding: "3px 10px",
+                      borderRadius: 999,
+                    }}
                   >
                     {tag}
                   </span>
